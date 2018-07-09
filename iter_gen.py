@@ -2,24 +2,36 @@
 Iterators and generators
 """
 
-from random import random
-count = 10
+MAX_SEQ = 42
 
+def fibonacci_generator():
+    index = 2
+    first = 0
+    second = 1
 
-def random_generator():
-    index = 0
-    while index < count:
-        index += 1
-        result = int(round((random() % 10) * 10))
-        yield result
+    if MAX_SEQ == 1:
+        yield first
+    elif MAX_SEQ == 2:
+        yield second
+    else:
+        while index < MAX_SEQ:
+            third = first + second
+            first = second
+            second = third
+            index += 1
+            yield third
 
 
 if __name__ == '__main__':
-    random_number_iterator = random_generator()
+    fibonacci_iterator = fibonacci_generator()
     while True:
         try:
-            print(next(random_number_iterator))
+            the_number = next(fibonacci_iterator)
+            #print(the_number)
         except StopIteration:
             print("I'm done!")
             break
+
+    print('The {} Fibonacci number is:'.format(MAX_SEQ))
+    print(the_number)
 
